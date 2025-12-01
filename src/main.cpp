@@ -3,7 +3,7 @@
 #include <iostream>
 #include <q8_8.h>
 
-#include "func_g.h"
+#include "oscillator.h"
 
 void q8_8_tests();
 void test_framework(float E, float R);
@@ -11,7 +11,7 @@ void test_framework(float E, float R);
 int main() {
     std::cout << "Hello C++ development environment!" << std::endl;
     q8_8_tests();
-    func_g osc(48000.0f);
+    oscillator osc(48000.0f);
     osc.set_frequency(440.0f);
     while (true) {
         q8_8 sample = osc.next_sample();

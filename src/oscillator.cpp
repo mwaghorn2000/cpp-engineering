@@ -4,7 +4,6 @@
 
 #include "../include/oscillator.h"
 #include <cmath>
-#include <iostream>
 
 using namespace dsp;
 

@@ -12,10 +12,9 @@
 namespace dsp {
 
     struct Waveform {
-        enum class Kind {Sine, Square, Saw, Triangle};
 
-        Kind kind;
-        float pwm;
+    public:
+        enum class Kind {Sine, Square, Saw, Triangle};
 
         static Waveform sine() {
             return { Kind::Sine, 0.5f };
@@ -33,6 +32,11 @@ namespace dsp {
             return {Kind::Square, pwm};
         }
 
+    private:
+        Waveform(Kind k, float pwm) : kind_(k), pwm_(pwm) {};
+
+        Kind kind_;
+        float pwm_;
     };
 
     class oscillator {
@@ -57,10 +61,7 @@ namespace dsp {
         float phase_inc_{};
         float pwm_{};
         Waveform waveform_;
-
     };
-
-
 }
 
 

@@ -23,6 +23,10 @@ public:
     q8_8 operator-(const q8_8 & other) const;
     q8_8 operator*(const q8_8 & other) const;
     q8_8 operator/(const q8_8 & other) const;
+    q8_8& operator+=(const q8_8 & other);
+    q8_8& operator-=(const q8_8 & other);
+    q8_8& operator*=(const q8_8 & other);
+    q8_8& operator/=(const q8_8 & other);
 
     [[nodiscard]] int16_t raw() const { return value; }
 };

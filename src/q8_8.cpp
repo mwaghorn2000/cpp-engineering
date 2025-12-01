@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include <iostream>
+#include <ostream>
 
 // Default constructor
 q8_8::q8_8() {
@@ -45,7 +47,8 @@ q8_8 q8_8::operator*(const q8_8& other) const {
 
 q8_8 q8_8::operator/(const q8_8& other) const {
     if (other.toFloat() == 0.0) {
-        return q8_8(0);
+        std::cerr << "Division by zero" << std::endl;
+        assert(false);
     }
     const auto a = static_cast<int32_t>(this->value);
     const auto b = static_cast<int32_t>(other.value);
@@ -65,6 +68,42 @@ q8_8 q8_8::q8_8_fromFloat(float f) {
 
     return q8_8(static_cast<int16_t>(wide));
 }
+
+q8_8& q8_8::operator+=(const q8_8 & other) {
+    int32_t wide = static_cast<int32_t>(this->value) + static_cast<int32_t>(other.value);
+    wide = std::clamp(wide, -32768, 32767);
+    this->value = static_cast<int16_t>(wide);
+    return *this;
+}
+
+q8_8& q8_8::operator-=(const q8_8 & other) {
+    int32_t wide = static_cast<int32_t>(this->value) - static_cast<int32_t>(other.value);
+    wide = std::clamp(wide, -32768, 32767);
+    this->value = static_cast<int16_t>(wide);
+    return *this;
+}
+
+q8_8& q8_8::operator*=(const q8_8 & other) {
+    int32_t wide = (static_cast<int32_t>(this->value) * other.value) >> 8;
+    wide = std::clamp(wide, -32768, 32767);
+    this->value = static_cast<int16_t>(wide);
+    return *this;
+}
+
+q8_8& q8_8::operator/=(const q8_8 & other) {
+    if (other.toFloat() == 0.0) {
+        std::cerr << "Division by zero" << std::endl;
+        assert(false);
+    }
+
+    int32_t wide = ((static_cast<int32_t>(this->value)) << 8) / other.value;
+    wide = std::clamp(wide, -32768, 32767);
+    this->value = static_cast<int16_t>(wide);
+    return *this;
+}
+
+
+
 
 
 

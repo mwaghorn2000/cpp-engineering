@@ -17,7 +17,7 @@ q8_8::q8_8() {
 
 q8_8 q8_8::q8_8_FromInt(int integer) {
     int32_t wide = static_cast<int32_t>(integer) << 8;
-    wide = std::clamp(wide, -32768, 32767);
+    wide = std::clamp(wide, (int32_t)-32768, (int32_t)32767);
     return q8_8(static_cast<int16_t>(wide));
 }
 
@@ -27,21 +27,21 @@ float q8_8::toFloat() const {
 
 q8_8 q8_8::operator+(const q8_8& other) const {
     int32_t wide = static_cast<int32_t>(this->value) + static_cast<int32_t>(other.value);
-    wide = std::clamp(wide, -32768, 32767);
+    wide = std::clamp(wide, (int32_t)-32768, (int32_t)32767);
 
     return q8_8(static_cast<int16_t>(wide));
 }
 
 q8_8 q8_8::operator-(const q8_8& other) const {
     int32_t wide = static_cast<int32_t>(this->value) - static_cast<int32_t>(other.value);
-    wide = std::clamp(wide, -32768, 32767);
+    wide = std::clamp(wide, (int32_t)-32768, (int32_t)32767);
 
     return q8_8(static_cast<int16_t>(wide));
 }
 
 q8_8 q8_8::operator*(const q8_8& other) const {
     int32_t wide = (static_cast<int32_t>(this->value) * static_cast<int32_t>(other.value)) >> 8;
-    wide = std::clamp(wide, -32768, 32767);
+    wide = std::clamp(wide, (int32_t)-32768, (int32_t)32767);
     return q8_8(static_cast<int16_t>(wide));
 }
 
@@ -53,7 +53,7 @@ q8_8 q8_8::operator/(const q8_8& other) const {
     const auto a = static_cast<int32_t>(this->value);
     const auto b = static_cast<int32_t>(other.value);
     int32_t wide = (a << 8) / b;
-    wide= std::clamp(wide, -32768, 32767);
+    wide= std::clamp(wide, (int32_t)-32768, (int32_t)32767);
     return q8_8(static_cast<int16_t>(wide));
 }
 
@@ -71,21 +71,21 @@ q8_8 q8_8::q8_8_fromFloat(float f) {
 
 q8_8& q8_8::operator+=(const q8_8 & other) {
     int32_t wide = static_cast<int32_t>(this->value) + static_cast<int32_t>(other.value);
-    wide = std::clamp(wide, -32768, 32767);
+    wide = std::clamp(wide, (int32_t)-32768, (int32_t)32767);
     this->value = static_cast<int16_t>(wide);
     return *this;
 }
 
 q8_8& q8_8::operator-=(const q8_8 & other) {
     int32_t wide = static_cast<int32_t>(this->value) - static_cast<int32_t>(other.value);
-    wide = std::clamp(wide, -32768, 32767);
+    wide = std::clamp(wide, (int32_t)-32768, (int32_t)32767);
     this->value = static_cast<int16_t>(wide);
     return *this;
 }
 
 q8_8& q8_8::operator*=(const q8_8 & other) {
     int32_t wide = (static_cast<int32_t>(this->value) * other.value) >> 8;
-    wide = std::clamp(wide, -32768, 32767);
+    wide = std::clamp(wide, (int32_t)-32768, (int32_t)32767);
     this->value = static_cast<int16_t>(wide);
     return *this;
 }
@@ -97,7 +97,7 @@ q8_8& q8_8::operator/=(const q8_8 & other) {
     }
 
     int32_t wide = ((static_cast<int32_t>(this->value)) << 8) / other.value;
-    wide = std::clamp(wide, -32768, 32767);
+    wide = std::clamp(wide, (int32_t)-32768, (int32_t)32767);
     this->value = static_cast<int16_t>(wide);
     return *this;
 }
